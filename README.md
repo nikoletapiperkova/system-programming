@@ -25,13 +25,11 @@ These programs reimplement standard Unix core utilities using low-level system c
 * **`cpC.c`**: A simple implementation of the `cp` command. Copies content from a source file to a destination file.
 * **`catC.c`**: Reads from standard input (stdin) and writes it directly to standard output (stdout).
 * **`catMul.c`**: Concatenates and prints multiple files passed as command-line arguments.
-* **`catTrunc.c`**: Reads from stdin and **appends** the data to a specified file.
 * **`teeC.c`**: Mimics the `tee` command. It reads from stdin and writes simultaneously to both stdout and a specified file.
 
 #### **Data Analysis**
 
 * **`wcC.c`**: A basic version of the `wc` (word count) utility. It counts lines, words, and characters in a file.
-* **`grep.c`**: A simplified `grep` that searches for a specific string within a file. It returns exit code `0` if found and `1` if not.
 
 ---
 
