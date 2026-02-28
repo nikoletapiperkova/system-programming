@@ -10,11 +10,11 @@ These scripts demonstrate how to control the flow of execution based on child pr
 
 | File | Description |
 | --- | --- |
-| **`script-one`** | A multi-stage wrapper. It first runs a hardcoded grep, then executes a user-provided command. If that command succeeds (exit 0), it logs the command name to a specified file. |
-| **`script-two`** | A manual implementation of grep. It reads a file character-by-character, reconstructs lines in a buffer, and uses strstr to find a pattern. It exits with 0 on the first match found, and 1 otherwise. |
-| **`script-three`** | Implements Logical NOT-AND execution: The second command only runs if the first command fails (non-zero exit code). |
+| **`script-one.c`** | A multi-stage wrapper. It first runs a hardcoded grep, then executes a user-provided command. If that command succeeds (exit 0), it logs the command name to a specified file. |
+| **`script-two.c`** | A manual implementation of grep. It reads a file character-by-character, reconstructs lines in a buffer, and uses strstr to find a pattern. It exits with 0 on the first match found, and 1 otherwise. |
+| **`script-three.c`** | Implements Logical NOT-AND execution: The second command only runs if the first command fails (non-zero exit code). |
 | **`script-four.c`** | A dynamic argument wrapper. It shifts the argument array argv to "hide" the wrapper's name and then uses execvp to run the rest of the arguments as a standalone command.|
-| **`script-five`** | Implements Logical AND execution: The second command runs only if the first command finishes successfully (exit code 0).|
+| **`script-five.c`** | Implements Logical AND execution: The second command runs only if the first command finishes successfully (exit code 0).|
 
 
 ---
