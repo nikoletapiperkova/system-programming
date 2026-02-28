@@ -1,0 +1,22 @@
+#include <unistd.h>
+#include <fcntl.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <stdio.h>
+#include <errno.h>
+
+int main(int argc, char* argv[]) {
+
+  int bytesR = 1, bytesW = 1;
+  char buffer[1024];
+
+  while((bytesR = read (0, buffer,1024)) > 0) {
+    bytesW = write(1,buffer, bytesR);
+
+  }
+
+  if(bytesR == -1) {
+    perror("Did not read from the standart inout");
+  }
+
+}
