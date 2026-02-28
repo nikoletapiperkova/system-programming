@@ -1,0 +1,29 @@
+#include <sys/types.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <errno.h>
+#include <string.h>
+
+int main(int argc, char* argv []) {
+
+  int sourceFile;
+  int bytesR, bytesW, bytesWS;
+  char buffer[1024];
+  sourceFile = open(argv[1], O_CREAT | O_WRONLY | O_TRUNC, 0755);
+  if(sourceFile == -1) {
+    perror(strcat("tee: ", argv[1]));
+  }
+
+  while((bytesR = read(0, buffer, 1024)) > 0) {
+    bytesW = write(sourceFile, buffer, bytesR);
+    bytesWS = write(1, buffer, bytesR);
+  }
+
+  if(bytesR == -1) {
+    perror("Cannot read properly from the standart input");
+  }
+
+  close(sourceFile);
+}
