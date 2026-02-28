@@ -1,0 +1,62 @@
+#include <unistd.h>
+#include <fcntl.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <stdio.h>
+#include <stdbool.h>
+
+int main(int argc, char* argv[]) {
+
+  int file, rBytes = 1;
+  char buffer[128];
+  int wordCount=0, linesCount=0, charCount=0;
+  bool word = false;
+
+  file = open(argv[1], O_RDONLY);
+  if(file == -1) {
+    printf("Error while opening\n");
+    return 1;
+  }
+
+  while(rBytes > 0) {
+   rBytes = read(file, buffer, 1);
+
+   if(rBytes == -1) {
+     printf("Error while reading\n");
+     return 1;
+   }
+
+   if(rBytes == 0) {
+     break;
+   }
+
+   if(buffer[0] == '\n') {
+     linesCount++;
+   }
+
+   if(buffer[0] != ' ' || buffer[0] != '\n' || buffer[0] != '\t') {
+     charCount++;
+   }
+
+   if((buffer[0] != ' ' || buffer[0] != '\t' || buffer[0] != '\n') && !word) {
+     word = true;
+     wordCount++;
+   }
+
+   if((buffer[0] == ' ' || buffer[0] == '\t' || buffer[0] == '\n') && word) {
+     word = false;
+   }
+  }
+
+
+   if(close(file) == -1) {
+     printf("Error while closing\n");
+     return 1;
+   }
+
+   printf("%d\n", linesCount);
+   printf("%d\n", wordCount);
+   printf("%d\n", charCount);
+   printf("%s\n", argv[1]);
+   return 0;
+}
