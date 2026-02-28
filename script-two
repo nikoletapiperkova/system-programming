@@ -1,0 +1,38 @@
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include <errno.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main(int argc, char* argv[]) {
+    char* textToFind = argv[1];
+    int fd, size;
+    if((fd = open(argv[2], O_RDONLY)) == -1) {
+      perror(argv[2]);
+      exit(1);
+    }
+
+    char buffer[1028];
+    char ch;
+    int i = 0;
+
+    while((size = read (fd, &ch , 1)) > 0) {
+       buffer[i]=ch;
+       if(buffer[i] == '\n') {
+          buffer[i] = '\0';
+          char* find = strstr(buffer, textToFind);
+          if(find != NULL) {
+            close(fd);
+            exit(0);
+          }
+          i = 0;
+       } else {
+         i++;
+       }
+    }
+
+  exit(1);
+}
